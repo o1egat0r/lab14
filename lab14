@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define FILE_NAME "text.txt"
+#define BUFFER_SIZE 256
+
+// Функция для подсчета строк, начинающихся с буквы 'А'
+int countLinesStartingWithA(const char *fileName) {
+    FILE *file = fopen(fileName, "r");
+    if (file == NULL) {
+        perror("Ошибка открытия файла для чтения");
+        exit(EXIT_FAILURE);
+    }
+
+    char buffer[BUFFER_SIZE];
+    int count = 0;
+
+    while (fgets(buffer, BUFFER_SIZE, file) != NULL) {
+        if (buffer[0] == 'A' || buffer[0] == 'a') {
+            ++count;
+        }
+    }
+
+    fclose(file);
+    return count;
+}
+
+int main() {
+    int count = countLinesStartingWithA(FILE_NAME);
+    printf("Количество строк, начинающихся с буквы 'А': %d\n", count);
+    return 0;
+}
